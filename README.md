@@ -109,7 +109,7 @@ results.
 The small suffix script then serializes the results into a concise cookie, which
 is set on the client using Javascript. It then refreshes the page immediately.
 
-This second time the PHP script is executed, the modernizr-server.php takes the
+This second time the PHP script is executed, the library takes the
 cookie and instantiates the server-side `$modernizr` object with its contents. If
 possible, this is placed in the PHP `$_SESSION` so that it can be quickly accessed
 in subsequent requests.
@@ -127,7 +127,7 @@ re-request it with the Modernizr data in a cookie. In theory, if the cookie does
 not get set on the client correctly, the refresh could loop indefinitely. I'll
 think of some ways to mitigate this.
 
-You are advised to first use modernizr-server.php on a page that is accessed by
+You are advised to first use `modernizr-server.php` on a page that is accessed by
 the user with a `GET` method. If the first request made is a `POST` (from a form,
 for example), the refresh of the page will cause the browser to ask the user if
 they want to immediately resubmit the form, which may confuse them.
