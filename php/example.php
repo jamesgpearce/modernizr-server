@@ -1,11 +1,11 @@
-<?php
+r<?php
   include('modernizr-server.php');
 ?><!DOCTYPE html>
 <!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
 <!--[if (gt IEMobile 7)|!(IEMobile)]><!--><html class="no-js"><!--<![endif]-->
 	<head>
 		<meta charset="utf-8">
-		<title>Modernizr page load test</title>
+		<title>Modernizr Server</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- ATG: adding this script to add the <html> classes on DOM-Ready -->
 		<script>
@@ -25,7 +25,7 @@
 		</script>
 	</head>
 	<body>
-		<h1>Modernizr page load test</h1>
+		<h1>Modernizr Server</h1>
 <?php
   print 'The server knows:';
   foreach($modernizr as $feature=>$value) {
