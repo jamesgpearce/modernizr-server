@@ -4,28 +4,47 @@ class Modernizr {
   
   static $modernizr_js = '../modernizr.js/modernizr.js';
   static $key = 'Modernizr';
+  // ATG: adding for <html> classes
+  static $keyClasses = 'ModernizrClasses';
+  static $modClasses = '';
   
   static function boo() {
     $key = self::$key;
+    // ATG: adding for <html> classes
+    $keyClasses = self::$keyClasses;
+    $modClasses = self::$modClasses;
     if (session_start() && isset($_SESSION) && isset($_SESSION[$key])) {
-      return $_SESSION[$key];
+      // ATG: i was getting a PHP error when retrieving the $_SESSION variable value
+      return unserialize($_SESSION[$key]);
+      // ATG: adding for <html> classes
+      if (isset($_SESSION[$keyClasses])) {
+        $modClasses = $_SESSION[$keyClasses];
+      }
     } elseif (isset($_COOKIE) && isset($_COOKIE[$key])) {
       $modernizr = self::_ang($_COOKIE[$key]);
       if (isset($_SESSION)) {
-        $_SESSION[$key] = $modernizr;
+        // ATG: i was getting a PHP error when retrieving the $_SESSION variable value
+        $_SESSION[$key] = serialize($modernizr);
+      }
+      // ATG: adding for <html> classes
+      if (isset($_COOKIE[$keyClasses])) {
+        $modClasses = self::_ang($_COOKIE[$keyClasses]);
+        $_SESSION[$keyClasses] = $modClasses;
       }
       return $modernizr;
     } else {
-      print "<html><head><script type='text/javascript'>";
+      // ATG: had to move <script> into <body>, Modernizr hyphens test was breaking
+      print "<html><head></head><body><script type='text/javascript'>";
       readfile(__DIR__ . '/' . self::$modernizr_js);
-      print self::_mer() . "</script></head><body></body></html>";
+      print self::_mer() . "</script></body></html>";
       exit;
     }
   }
 
   static function _mer() {
     return "".
-      "var m=Modernizr,c='';".
+      // ATG: adding mc var to collect <html> classes
+      "var m=Modernizr,c='',mc='';".
       "for(var f in m){".
         "if(f[0]=='_'){continue;}".
         "var t=typeof m[f];".
@@ -42,6 +61,10 @@ class Modernizr {
       "c+=';path=/';".
       "try{".
         "document.cookie=c;".
+        // ATG: push <html> classes into mc variable
+        "mc='ModernizrClasses='+document.documentElement.className+';path=/';".
+        // ATG: push mc variable into cookie for later; cookies are yummy...
+        "document.cookie=mc;".
         "document.location.reload();".
       "}catch(e){}".
     "";
