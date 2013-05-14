@@ -25,9 +25,9 @@ to reduce the `cookie` overhead, falling-back to `cookies` if `localStorage` is 
 # Demos:
 
 * [Working Demo](http://aarontgrogg.com/testing/modernizr-server/index.php)
-* [With `localStorage` forced to __not__ work](http://aarontgrogg.com/testing/modernizr-server/no-localstorage.php)
-* [With `cookies` forced to __not__ work](http://aarontgrogg.com/testing/modernizr-server/no-cookies.php)
-* [With `localStorage` and `cookies` forced to __not__ work](http://aarontgrogg.com/testing/modernizr-server/no-nuthin.php)
+* With `localStorage` forced to __not__ work (coming...)
+* With `cookies` forced to __not__ work (coming...)
+* With `localStorage` and `cookies` forced to __not__ work (coming...)
 
 
 # TODOs:
