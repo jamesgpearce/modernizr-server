@@ -1,10 +1,10 @@
 <?php
 
 class Modernizr {
-  
-  static $modernizr_js = '../modernizr.js/modernizr.js';
+
+  static $modernizr_js = 'modernizr.js';
   static $key = 'Modernizr';
-  
+
   static function boo() {
     $key = self::$key;
     if (session_start() && isset($_SESSION) && isset($_SESSION[$key])) {
@@ -16,8 +16,12 @@ class Modernizr {
       }
       return $modernizr;
     } else {
+      $f = __DIR__ . DIRECTORY_SEPARATOR . self::$modernizr_js;
+      if (!file_exists($f)) {
+        throw new Exception('Can not find file ' . $f);
+      }
       print "<html><head><script type='text/javascript'>";
-      readfile(__DIR__ . '/' . self::$modernizr_js);
+      readfile($f);
       print self::_mer() . "</script></head><body></body></html>";
       exit;
     }
@@ -46,7 +50,7 @@ class Modernizr {
       "}catch(e){}".
     "";
   }
-  
+
   static function _ang($cookie) {
     $modernizr = new Modernizr();
     foreach (explode('|', $cookie) as $feature) {
@@ -64,9 +68,12 @@ class Modernizr {
     }
     return $modernizr;
   }
-  
+
 }
 
-$modernizr = Modernizr::boo();
-
-?>
+try {
+  $modernizr = Modernizr::boo();
+} catch(Exception $e) {
+  echo $e->getMessage();
+  die;
+}
