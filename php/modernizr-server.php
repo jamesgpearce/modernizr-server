@@ -54,6 +54,7 @@ class Modernizr {
             c += '|screenwidth:' + screen.width;
             c += '|windowheight:' + window.innerHeight;
             c += '|windowwidth:' + window.innerWidth;
+            c += '|standalone:' + (window.navigator.standalone ? '1' : '0');
             c += ';path=/';
             try {
                 document.cookie = c;
