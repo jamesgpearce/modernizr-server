@@ -30,6 +30,7 @@ class Modernizr {
     static function _mer() {
         return <<<'JAVASCRIPT'
 
+            navigator.standalone = navigator.standalone || (screen.height-document.documentElement.clientHeight<40); // Polyfill for nav.standalone
             var m = Modernizr,
                 c = '';
             for (var f in m) {
