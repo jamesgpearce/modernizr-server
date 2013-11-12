@@ -31,6 +31,7 @@ class Modernizr {
         return <<<'JAVASCRIPT'
 
             navigator.standalone = navigator.standalone || (screen.height-document.documentElement.clientHeight<40); // Polyfill for nav.standalone
+
             var m = Modernizr,
                 c = '';
             for (var f in m) {
@@ -55,11 +56,15 @@ class Modernizr {
             c += '|screenwidth:' + screen.width;
             c += '|windowheight:' + window.innerHeight;
             c += '|windowwidth:' + window.innerWidth;
-            c += '|standalone:' + (window.navigator.standalone ? '1' : '0');
+            c += '|standalone:' + ((window.navigator.standalone) ? '1' : '0');
             c += ';path=/';
             try {
                 document.cookie = c;
-                document.location.reload();
+                if (document.cookie == '') {
+                    document.location = document.location.href + '?NO_COOKIES=1';
+                } else {
+                    document.location.reload();
+                }
             } catch (e) {}
 
 JAVASCRIPT;
